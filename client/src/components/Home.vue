@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <v-container>
     <h1>Home</h1>
-    <v-btn color="error">Button</v-btn>
-  </div>
+  </v-container>
 </template>
 
 <script>
 
-export default {
-  name: 'home'
-}
+    export default {
+        name: 'home'
+    }
 </script>
