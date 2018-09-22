@@ -8,16 +8,21 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-      posts: []
+        posts: [],
+        loading: false
     },
     mutations: {
         setPosts: (state, payload) => {
-          state.posts = payload;
+            state.posts = payload;
+        },
+        setLoading: (state, payload) => {
+          state.loading = payload;
         }
     },
     actions: {
         getPosts: ({commit}) => {
             // use ApolloClient to fire getPosts query
+            commit('setLoading', true);
             apolloClient
                 .query({
                     query: gql`
@@ -32,14 +37,16 @@ export default new Vuex.Store({
                 })
                 .then(({data}) => {
                     commit('setPosts', data.getPosts);
-                    console.log(data);
+                    commit('setLoading', false);
                 })
                 .catch(err => {
+                    commit('setLoading', false);
                     console.error(err);
                 });
         }
     },
     getters:{
-      posts: state => state.posts
+        posts: state => state.posts,
+        loading: state => state.loading
     }
 });
