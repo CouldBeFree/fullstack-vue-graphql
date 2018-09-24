@@ -25,14 +25,13 @@ mongoose
 
 //verify JWT Token passed from client
 const getUser = async token => {
-  if(token){
-      try{
-          let user = await jwt.verify(token, process.env.SECRET);
-          console.log(user);
-      } catch(err){
-          throw new AuthenticationError('Your session has ended. Please sign in again')
-      }
-  }
+    if(token){
+        try{
+            return await jwt.verify(token, process.env.SECRET);
+        } catch(err){
+            throw new AuthenticationError('Your session has ended. Please sign in again')
+        }
+    }
 };
 
 // Create Apollo/GraphQL Server using typeDefs, resolvers, and context object
