@@ -21,6 +21,15 @@
             {{item.title}}
           </v-list-tile-content>
         </v-list-tile>
+
+        <!-- Signout Button -->
+        <v-list-tile v-if="user">
+          <v-list-tile-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>Signout</v-list-tile-content>
+        </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -47,6 +56,22 @@
           <v-icon class="hidden-sm-only" left>{{item.icon}}</v-icon>
           {{item.title}}
         </v-btn>
+
+        <!-- Profile Button -->
+        <v-btn flat to="/profile" v-if="user">
+          <v-icon class="hidden-sm-only" left>account_box</v-icon>
+          <v-badge right color="blue darken-2">
+            <!--<span slot="badge">1</span>-->
+            Profile
+          </v-badge>
+        </v-btn>
+
+        <!-- Signout Button -->
+        <v-btn flat v-if="user">
+          <v-icon class="hidden-sm-only" left>exit_to_app</v-icon>
+          Signout
+        </v-btn>
+
       </v-toolbar-items>
     </v-toolbar>
 
