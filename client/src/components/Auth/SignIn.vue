@@ -67,7 +67,7 @@
                 ],
                 passwordRules: [
                     password => !!password || "Password is required",
-                    password => password.length >= 7 || "Password must be at least 7 characters"
+                    password => password.length >= 4 || "Password must be at least 4 characters"
                 ]
             }
         },
@@ -83,10 +83,12 @@
         },
         methods: {
             handleSigninUser(){
-                this.$store.dispatch('signinUser', {
-                    username: this.username,
-                    password: this.password
-                })
+                if(this.$refs.form.validate()){
+                    this.$store.dispatch('signinUser', {
+                        username: this.username,
+                        password: this.password
+                    })
+                }
             }
         }
     }
