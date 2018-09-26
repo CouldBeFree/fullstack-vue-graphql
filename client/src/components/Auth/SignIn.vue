@@ -19,23 +19,23 @@
             <v-flex xs12 sm6 offset-sm3>
                 <v-card color="secondary" dark>
                     <v-container>
-                        <v-form @submit.prevent="handleSigninUser">
+                        <v-form v-model="isFormValid" lazy-validation ref="form" @submit.prevent="handleSigninUser">
 
                             <v-layout row>
                                 <v-flex xs12>
-                                    <v-text-field v-model="username" prepend-icon="face" label="Username" required></v-text-field>
+                                    <v-text-field :rules="usernameRules" v-model="username" prepend-icon="face" label="Username" required></v-text-field>
                                 </v-flex>
                             </v-layout>
 
                             <v-layout row>
                                 <v-flex xs12>
-                                    <v-text-field v-model="password" prepend-icon="extension" label="Password" type="password"></v-text-field>
+                                    <v-text-field :rules="passwordRules" v-model="password" prepend-icon="extension" label="Password" type="password"></v-text-field>
                                 </v-flex>
                             </v-layout>
 
                             <v-layout row>
                                 <v-flex xs12>
-                                    <v-btn color="accent" type="submit">Signin</v-btn>
+                                    <v-btn :disabled="!isFormValid" :loading="loading" color="accent" type="submit">Signin</v-btn>
                                     <h3>Don't have an account?
                                         <router-link to="/signup">Signup</router-link>
                                     </h3>
@@ -59,11 +59,20 @@
         data(){
             return{
                 username: '',
-                password: ''
+                password: '',
+                isFormValid: true,
+                usernameRules: [
+                    username => !!username || "Username is required",
+                    username => username.length < 10 || "Username must be less than 10 characters"
+                ],
+                passwordRules: [
+                    password => !!password || "Password is required",
+                    password => password.length >= 7 || "Password must be at least 7 characters"
+                ]
             }
         },
         computed: {
-            ...mapGetters(['error', 'user'])
+            ...mapGetters(['loading', 'error', 'user'])
         },
         watch: {
           user(value){
@@ -84,5 +93,42 @@
 </script>
 
 <style scoped>
+
+    .custom-loader {
+        animation: loader 1s infinite;
+        display: flex;
+    }
+    @-moz-keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @-webkit-keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @-o-keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes loader {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
 
 </style>
