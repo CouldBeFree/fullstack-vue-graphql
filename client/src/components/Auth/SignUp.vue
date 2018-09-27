@@ -47,7 +47,7 @@
 
                             <v-layout row>
                                 <v-flex xs12>
-                                    <v-btn :disabled="!isFormValid" :loading="loading" color="info" type="submit">Signin</v-btn>
+                                    <v-btn :disabled="!isFormValid || loading" :loading="loading" color="info" type="submit">Signin</v-btn>
                                     <h3>Already have an account?
                                         <router-link to="/signin">Signin</router-link>
                                     </h3>
@@ -91,11 +91,24 @@
             }
         },
         computed:{
-            ...mapGetters(['loading', 'error'])
+            ...mapGetters(['loading', 'error', 'user'])
+        },
+        watch: {
+            user(value){
+                if(value){
+                    this.$router.push('/');
+                }
+            }
         },
         methods: {
             handleSignupUser(){
-
+                if(this.$refs.form.validate()){
+                    this.$store.dispatch('signupUser', {
+                        username: this.username,
+                        email: this.email,
+                        password: this.password
+                    })
+                }
             }
         }
     }

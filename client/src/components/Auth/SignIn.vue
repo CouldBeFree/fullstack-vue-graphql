@@ -35,7 +35,7 @@
 
                             <v-layout row>
                                 <v-flex xs12>
-                                    <v-btn :disabled="!isFormValid" :loading="loading" color="accent" type="submit">Signin</v-btn>
+                                    <v-btn :disabled="!isFormValid || loading" :loading="loading" color="accent" type="submit">Signin</v-btn>
                                     <h3>Don't have an account?
                                         <router-link to="/signup">Signup</router-link>
                                     </h3>
