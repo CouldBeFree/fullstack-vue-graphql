@@ -118,13 +118,13 @@
               if(oldValue === null) {
                   this.snackBar = true
               }
+            },
+            authError(value){
+                //if auth error is not null, show auth error snackbar
+                if(value !== null){
+                    this.authErrorSnackbar = true;
+                }
             }
-        },
-        authError(value){
-          //if auth error is not null, show auth error snackbar
-          if(value !== null){
-              this.authErrorSnackbar = true;
-          }
         },
         computed: {
             ...mapGetters(['authError','user']),
